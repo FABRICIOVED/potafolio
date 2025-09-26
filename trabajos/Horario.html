@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horario de Clases Creativo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --secondary: #f59e0b;
+      --tertiary: #10b981;
+      --bg: #0f172a;
+      --text: #f9fafb;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 30px;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 40px;
+      font-weight: 400;
+      color: #cbd5e1;
+    }
+
+    .schedule {
+      display: grid;
+      grid-template-columns: 120px repeat(5, 1fr);
+      gap: 15px;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .hour {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .subject {
+      padding: 20px;
+      border-radius: 50%;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+      cursor: default;
+    }
+
+    .mat1 { background: var(--primary); color: #fff; }
+    .mat2 { background: var(--secondary); color: #111827; }
+    .mat3 { background: var(--tertiary); color: #fff; }
+    .receso { background: #f87171; color: #111827; font-weight: 700; border-radius: 50%; grid-column: 2 / 6; display: flex; align-items: center; justify-content: center; }
+
+    .subject:hover {
+      transform: translateY(-5px) scale(1.05);
+    }
+
+    @media(max-width: 900px) {
+      .schedule {
+        grid-template-columns: 80px repeat(5, 1fr);
+        gap: 10px;
+      }
+      .hour, .subject { padding: 10px; font-size: 14px; }
+    }
+
+    @media(max-width: 600px) {
+      .schedule { grid-template-columns: 1fr; }
+      .receso { grid-column: span 1; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Instituto de Educación</h1>
+  <h2>Horario de Clases - Curso 2025</h2>
+
+  <div class="schedule">
+    <div class="hour">Hora</div>
+    <div class="hour">Lunes</div>
+    <div class="hour">Martes</div>
+    <div class="hour">Miércoles</div>
+    <div class="hour">Jueves</div>
+    <div class="hour">Viernes</div>
+
+    <div class="hour">08:00 - 09:00</div>
+    <div class="subject mat1">Matemáticas</div>
+    <div class="subject mat2">Informática</div>
+    <div class="subject mat3">Física</div>
+    <div class="subject mat1">Español</div>
+    <div class="subject mat2">Biología</div>
+
+    <div class="hour">09:00 - 10:00</div>
+    <div class="subject mat2">Informática</div>
+    <div class="subject mat3">Español</div>
+    <div class="subject mat1">Matemáticas</div>
+    <div class="subject mat2">Física</div>
+    <div class="subject mat3">Química</div>
+
+    <div class="hour">10:00 - 11:00</div>
+    <div class="subject mat3">Español</div>
+    <div class="subject mat1">Física</div>
+    <div class="subject mat2">Informática</div>
+    <div class="subject mat3">Matemáticas</div>
+    <div class="subject mat1">Historia</div>
+
+    <div class="hour">11:00 - 11:30</div>
+    <div class="receso" style="grid-column: 2 / span 5; justify-content: center;">Receso</div>
+
+    <div class="hour">11:30 - 12:30</div>
+    <div class="subject mat1">Física</div>
+    <div class="subject mat2">Matemáticas</div>
+    <div class="subject mat3">Español</div>
+    <div class="subject mat1">Informática</div>
+    <div class="subject mat2">Geografía</div>
+
+    <div class="hour">12:30 - 13:30</div>
+    <div class="subject mat3">Química</div>
+    <div class="subject mat1">Biología</div>
+    <div class="subject mat2">Historia</div>
+    <div class="subject mat3">Matemáticas</div>
+    <div class="subject mat1">Informática</div>
+
+    <div class="hour">13:30 - 14:30</div>
+    <div class="subject mat2">Educación Física</div>
+    <div class="subject mat3">Arte</div>
+    <div class="subject mat1">Educación Física</div>
+    <div class="subject mat2">Arte</div>
+    <div class="subject mat3">Español</div>
+  </div>
+</body>
+</html>

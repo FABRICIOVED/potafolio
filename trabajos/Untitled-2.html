@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario Multistep Moderno</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@headlessui/react@latest/dist/headlessui.umd.production.js"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 to-blue-100 min-h-screen flex items-center justify-center p-6">
+  <div class="w-full max-w-3xl bg-white/90 backdrop-blur shadow-2xl rounded-3xl overflow-hidden">
+    <div class="px-8 py-6 border-b border-indigo-100 bg-gradient-to-r from-indigo-600 to-blue-500">
+      <h1 class="text-2xl font-bold text-white">Formulario de Registro</h1>
+      <p class="text-indigo-100 text-sm">Completa paso a paso los campos requeridos.</p>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="flex justify-between items-center px-8 py-4">
+      <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div id="progress" class="h-2 bg-indigo-600 w-1/6 transition-all"></div>
+      </div>
+      <span id="step-indicator" class="ml-4 text-sm font-semibold text-indigo-700">Paso 1 de 6</span>
+    </div>
+
+    <form id="registro" class="p-8" novalidate>
+      <div class="space-y-8">
+        <!-- Paso 1: Ubicación -->
+        <section class="step">
+          <h2 class="text-lg font-semibold text-indigo-700 mb-4">📍 Datos de ubicación</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <input class="input" id="pais" name="pais" placeholder="País *" required />
+            <input class="input" id="provincia" name="provincia" placeholder="Provincia / Estado" />
+            <input class="input" id="canton" name="canton" placeholder="Cantón / Ciudad" />
+            <input class="input" id="direccion" name="direccion" placeholder="Dirección" />
+          </div>
+        </section>
+
+        <!-- Paso 2: Documentos -->
+        <section class="step hidden">
+          <h2 class="text-lg font-semibold text-indigo-700 mb-4">🪪 Documentos</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <input class="input" id="cedula" name="cedula" placeholder="Cédula" />
+            <input class="input" id="pasaporte" name="pasaporte" placeholder="Pasaporte" />
+            <select class="input" id="tipo-sangre" name="tipo_sangre">
+              <option value="">Tipo de Sangre</option>
+              <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+              <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+            </select>
+            <select class="input" id="estado-civil" name="estado_civil">
+              <option value="">Estado Civil</option>
+              <option>Soltero/a</option><option>Casado/a</option><option>Unión Libre</option><option>Divorciado/a</option><option>Viudo/a</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- Paso 3: Información personal -->
+        <section class="step hidden">
+          <h2 class="text-lg font-semibold text-indigo-700 mb-4">👤 Información Personal</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <input class="input" id="nombre" name="nombre" placeholder="Nombre(s) *" required />
+            <input class="input" id="apellido" name="apellido" placeholder="Apellido(s) *" required />
+            <input class="input" type="date" id="fecha-nac" name="fecha_nacimiento" required />
+            <input class="input" type="tel" id="telefono" name="telefono" placeholder="Teléfono *" required />
+            <input class="input md:col-span-2" type="number" id="cantidad-miembros" name="cantidad_miembros" placeholder="Miembros del Hogar" />
+            <input class="input md:col-span-2" type="number" id="ingreso-total" name="ingreso_total" placeholder="Ingreso Total del Hogar" />
+          </div>
+        </section>
+
+        <!-- Paso 4: Contacto familiar -->
+        <section class="step hidden">
+          <h2 class="text-lg font-semibold text-indigo-700 mb-4">📞 Contacto Familiar</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <input class="input" id="nombres-madre" name="nombres_madre" placeholder="Nombres Madre" />
+            <input class="input" id="contacto-madre" name="contacto_madre" placeholder="Contacto Madre" />
+            <input class="input" id="nombres-padre" name="nombres_padre" placeholder="Nombres Padre" />
+            <input class="input" id="contacto-padre" name="contacto_padre" placeholder="Contacto Padre" />
+          </div>
+        </section>
+
+        <!-- Paso 5: Ocupación -->
+        <section class="step hidden">
+          <h2 class="text-lg font-semibold text-indigo-700 mb-4">💼 Ocupación</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <select class="input" id="ocupacion" name="ocupacion">
+              <option value="">Ocupación</option>
+              <option>Estudiante</option><option>Empleado/a</option><option>Independiente</option><option>Desempleado/a</option><option>Otro</option>
+            </select>
+            <input class="input" id="ocupacion-text" name="ocupacion_text" placeholder="Si 'Otro', describe" />
+          </div>
+        </section>
+
+        <!-- Paso 6: Foto -->
+        <section class="step hidden">
+          <h2 class="text-lg font-semibold text-indigo-700 mb-4">📸 Foto</h2>
+          <div class="flex flex-col items-center justify-center gap-4">
+            <input type="file" id="foto" name="foto" accept="image/*" class="block w-full text-sm text-slate-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+              file:bg-indigo-50 file:text-indigo-700
+              hover:file:bg-indigo-100" />
+            <div id="preview" class="w-32 h-32 rounded-full border border-indigo-200 flex items-center justify-center text-gray-400">Vista previa</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Navegación -->
+      <div class="flex justify-between mt-10">
+        <button type="button" id="prev" class="px-5 py-2 rounded-xl bg-gray-200 text-gray-700 hover:bg-gray-300 hidden">Anterior</button>
+        <button type="button" id="next" class="ml-auto px-5 py-2 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700">Siguiente</button>
+        <button type="submit" id="submit" class="ml-auto px-5 py-2 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 hidden">Enviar</button>
+      </div>
+    </form>
+  </div>
+
+  <style>
+    .input{@apply w-full rounded-xl border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200;}
+  </style>
+
+  <script>
+    const steps = document.querySelectorAll('.step');
+    const progress = document.getElementById('progress');
+    const stepIndicator = document.getElementById('step-indicator');
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+    const submitBtn = document.getElementById('submit');
+    let current = 0;
+
+    function updateStep(){
+      steps.forEach((s,i)=> s.classList.toggle('hidden', i!==current));
+      prevBtn.classList.toggle('hidden', current===0);
+      nextBtn.classList.toggle('hidden', current===steps.length-1);
+      submitBtn.classList.toggle('hidden', current!==steps.length-1);
+      progress.style.width = `${((current+1)/steps.length)*100}%`;
+      stepIndicator.textContent = `Paso ${current+1} de ${steps.length}`;
+    }
+
+    nextBtn.addEventListener('click', ()=>{ if(current<steps.length-1){ current++; updateStep(); } });
+    prevBtn.addEventListener('click', ()=>{ if(current>0){ current--; updateStep(); } });
+
+    // Preview de imagen
+    const foto=document.getElementById('foto');
+    const preview=document.getElementById('preview');
+    foto.addEventListener('change', e=>{
+      const f=e.target.files[0]; if(!f){preview.textContent='Vista previa'; return;}
+      const reader=new FileReader();
+      reader.onload=evt=>{ preview.innerHTML=`<img src="${evt.target.result}" class="w-full h-full object-cover rounded-full"/>`; };
+      reader.readAsDataURL(f);
+    });
+
+    updateStep();
+
+    document.getElementById('registro').addEventListener('submit', e=>{
+      e.preventDefault();
+      alert('Formulario enviado con éxito (simulación).');
+    });
+  </script>
+</body>
+</html>

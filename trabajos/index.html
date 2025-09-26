@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listado de Alumnos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f4f6f9;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background: #007BFF;
+      color: white;
+    }
+    tr:hover {
+      background: #f1f1f1;
+    }
+    .foto {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .pagination {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .pagination button {
+      padding: 8px 15px;
+      margin: 0 5px;
+      border: none;
+      border-radius: 5px;
+      background: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+    .pagination button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .page-info {
+      text-align: center;
+      margin-top: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Listado de Alumnos</h1>
+
+  <table id="tablaAlumnos">
+    <thead>
+      <tr>
+        <th>Foto</th>
+        <th>Nombres y Apellidos</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Correo Electrónico</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Los registros se insertarán aquí con JS -->
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button id="prevBtn">Anterior</button>
+    <button id="nextBtn">Siguiente</button>
+  </div>
+
+  <div class="page-info" id="pageInfo"></div>
+
+  <script>
+    const alumnos = [
+      {nombre: "Carlos Pérez", telefono: "0991234567", direccion: "Av. América 123", correo: "carlos.perez@mail.com", foto: "https://randomuser.me/api/portraits/men/1.jpg"},
+      {nombre: "María López", telefono: "0987654321", direccion: "Calle 10 de Agosto", correo: "maria.lopez@mail.com", foto: "https://randomuser.me/api/portraits/women/2.jpg"},
+      {nombre: "Juan Torres", telefono: "0974567890", direccion: "Av. Colón 456", correo: "juan.torres@mail.com", foto: "https://randomuser.me/api/portraits/men/3.jpg"},
+      {nombre: "Ana Rodríguez", telefono: "0961122334", direccion: "Calle Quito 789", correo: "ana.rodriguez@mail.com", foto: "https://randomuser.me/api/portraits/women/4.jpg"},
+      {nombre: "Pedro Sánchez", telefono: "0953344556", direccion: "Av. Amazonas 222", correo: "pedro.sanchez@mail.com", foto: "https://randomuser.me/api/portraits/men/5.jpg"},
+      {nombre: "Lucía Gómez", telefono: "0945566778", direccion: "Calle Guayaquil 333", correo: "lucia.gomez@mail.com", foto: "https://randomuser.me/api/portraits/women/6.jpg"},
+      {nombre: "Diego Castro", telefono: "0939988776", direccion: "Av. República 101", correo: "diego.castro@mail.com", foto: "https://randomuser.me/api/portraits/men/7.jpg"},
+      {nombre: "Valeria Herrera", telefono: "0924455667", direccion: "Calle Bolívar 202", correo: "valeria.herrera@mail.com", foto: "https://randomuser.me/api/portraits/women/8.jpg"},
+      {nombre: "José Morales", telefono: "0912233445", direccion: "Av. Naciones Unidas", correo: "jose.morales@mail.com", foto: "https://randomuser.me/api/portraits/men/9.jpg"},
+      {nombre: "Laura Martínez", telefono: "0998877665", direccion: "Calle Sucre 505", correo: "laura.martinez@mail.com", foto: "https://randomuser.me/api/portraits/women/10.jpg"},
+      {nombre: "Andrés Gutiérrez", telefono: "0983344552", direccion: "Av. Pichincha 606", correo: "andres.gutierrez@mail.com", foto: "https://randomuser.me/api/portraits/men/11.jpg"},
+      {nombre: "Paola Castillo", telefono: "0976655443", direccion: "Calle Imbabura 707", correo: "paola.castillo@mail.com", foto: "https://randomuser.me/api/portraits/women/12.jpg"},
+      {nombre: "Ricardo Vargas", telefono: "0965544332", direccion: "Av. Eloy Alfaro", correo: "ricardo.vargas@mail.com", foto: "https://randomuser.me/api/portraits/men/13.jpg"},
+      {nombre: "Gabriela Molina", telefono: "0954433221", direccion: "Calle Manabí 909", correo: "gabriela.molina@mail.com", foto: "https://randomuser.me/api/portraits/women/14.jpg"},
+      {nombre: "Santiago Flores", telefono: "0943322110", direccion: "Av. Orellana 321", correo: "santiago.flores@mail.com", foto: "https://randomuser.me/api/portraits/men/15.jpg"},
+      {nombre: "Camila Ruiz", telefono: "0932211009", direccion: "Calle Cuenca 654", correo: "camila.ruiz@mail.com", foto: "https://randomuser.me/api/portraits/women/16.jpg"},
+      {nombre: "Fernando Ortiz", telefono: "0921109876", direccion: "Av. Napo 777", correo: "fernando.ortiz@mail.com", foto: "https://randomuser.me/api/portraits/men/17.jpg"},
+      {nombre: "Daniela Méndez", telefono: "0910099887", direccion: "Calle Loja 888", correo: "daniela.mendez@mail.com", foto: "https://randomuser.me/api/portraits/women/18.jpg"},
+      {nombre: "Miguel Silva", telefono: "0997654321", direccion: "Av. La Prensa 444", correo: "miguel.silva@mail.com", foto: "https://randomuser.me/api/portraits/men/19.jpg"},
+      {nombre: "Andrea Chávez", telefono: "0981239876", direccion: "Calle Olmedo 555", correo: "andrea.chavez@mail.com", foto: "https://randomuser.me/api/portraits/women/20.jpg"}
+    ];
+
+    const filasPorPagina = 10;
+    let paginaActual = 1;
+    const totalPaginas = Math.ceil(alumnos.length / filasPorPagina);
+
+    function mostrarTabla() {
+      const tabla = document.querySelector("#tablaAlumnos tbody");
+      tabla.innerHTML = "";
+      let inicio = (paginaActual - 1) * filasPorPagina;
+      let fin = inicio + filasPorPagina;
+      let registros = alumnos.slice(inicio, fin);
+
+      registros.forEach(alumno => {
+        let fila = `<tr>
+                      <td><img src="${alumno.foto}" class="foto" alt="foto de ${alumno.nombre}"></td>
+                      <td>${alumno.nombre}</td>
+                      <td>${alumno.telefono}</td>
+                      <td>${alumno.direccion}</td>
+                      <td>${alumno.correo}</td>
+                    </tr>`;
+        tabla.innerHTML += fila;
+      });
+
+      document.getElementById("prevBtn").disabled = paginaActual === 1;
+      document.getElementById("nextBtn").disabled = paginaActual === totalPaginas;
+
+      // Actualizar número de página
+      document.getElementById("pageInfo").textContent = `Página ${paginaActual} de ${totalPaginas}`;
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      if (paginaActual > 1) {
+        paginaActual--;
+        mostrarTabla();
+      }
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      if (paginaActual < totalPaginas) {
+        paginaActual++;
+        mostrarTabla();
+      }
+    });
+
+    mostrarTabla();
+  </script>
+</body>
+</html>
+
